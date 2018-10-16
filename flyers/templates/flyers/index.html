@@ -1,1 +1,38 @@
 {% extends 'master.html' %}
+{% load thumbnail %}
+{% load static %}
+
+{% block 'content' %}
+
+<section class="section is-medium bg"></section>
+
+<div id="Stores" class="section">
+	<div class="container">
+		<h2 class="has-text-weight-light">Hand-Picked Offers From Stores & Brands You Love</h2>		
+		<div class="notification is-white">
+			{% if stores %}
+				<div class="columns is-multiline">
+					{% for s in stores %}    
+						<div class="column is-4">
+							{% thumbnail s.store_logo "180x60" crop="center" as im %}
+								<figure class="image is-3by1">
+							    	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+								</figure>
+							{% endthumbnail %}
+						</div>
+					{% endfor %}
+				</div>
+			{% else %}
+				<p class="heading is-size-3">Nothing to display</p>
+			{% endif %}
+		</div>
+		<a class="button is-dark is-outlined" href="/">View All Stores</a>
+	</div>
+</div>
+<div id="Coupons" class="section">
+	<div class="container">
+		
+	</div>
+</div>
+
+{% endblock %}

@@ -1,24 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html class="has-navbar-fixed-top">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FA6EEN</title>
-	<link href="https://fonts.googleapis.com/css?family=Asap:400,600|Asap+Condensed:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,700" rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'css/bulma.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-    <main class="content is-marginless">
-        <div class="hero is-success is-fullheight is-bold">
-            <div class="hero-body">
-                <div class="container has-text-centered">
-                    <h1 class="title is-1 is-italic" style="font-size: 8rem;">FA6EEN</h1>
-                    <p class="subtitle is-4">COMING SOON!</p>
+<body class="has-background-light">
+    {% include 'navbar.html' %}
+    <div class="notification is-success is-radiusless is-marginless">
+        <div class="container">
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input is-large" type="text" placeholder="Search for coupons, stores and categories.">
+                </div>
+                <div class="control">
+                    <a class="button is-light is-large">Search</a>
                 </div>
             </div>
         </div>
+    </div>
+    <main class="content is-marginless">
     	{% block 'content' %}{% endblock %}
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
