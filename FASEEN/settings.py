@@ -25,7 +25,7 @@ SECRET_KEY = 'k%&_1y($h+gv0zc94o542f!v_f)p=csodtcua+*%yix36&l0-8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'faseen.pythonanywhere.com']
 
 
 # Application definition
