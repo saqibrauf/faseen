@@ -4,34 +4,67 @@
 
 {% block 'content' %}
 
-<section class="section is-medium bg"></section>
-
-<div id="Stores" class="section">
+<div id="Stores" class="section has-background-white">
 	<div class="container">
 		<h2 class="has-text-weight-light">Hand-Picked Offers From Stores & Brands You Love</h2>		
-		<div class="notification is-white">
-			{% if stores %}
-				<div class="columns is-multiline">
-					{% for s in stores %}    
-						<div class="column is-4">
-							{% thumbnail s.store_logo "180x60" crop="center" as im %}
-								<figure class="image is-3by1">
-							    	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+		{% if stores %}
+		<div class="box is-radiusless">
+			<div class='carousel carousel-animated carousel-animate-slide has-text-centered' data-size="5">
+				<div class='carousel-container'>
+					{% for s in stores|slice:':10' %}   
+						{% thumbnail s.store_logo "180x90" crop="center" as im %}
+							<div class='carousel-item'>
+								<figure class="image is-2by1 is-marginless">
+									<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 								</figure>
-							{% endthumbnail %}
-						</div>
-					{% endfor %}
+								<div class="title">{{s.store}}</div>
+							</div>
+						{% endthumbnail %}
+					{% endfor %}		
 				</div>
-			{% else %}
-				<p class="heading is-size-3">Nothing to display</p>
-			{% endif %}
+				<div class="carousel-navigation is-overlay">
+					<div class="carousel-nav-left">
+						<span class="icon is-large"><i class="fas fa-3x fa-caret-square-left"></i></span>
+					</div>
+					<div class="carousel-nav-right">
+						<span class="icon is-large"><i class="fas fa-3x fa-caret-square-right"></i></span>
+					</div>
+				</div>
+			</div>
+			<a class="button is-dark is-outlined" href="/">View All Stores</a>
 		</div>
-		<a class="button is-dark is-outlined" href="/">View All Stores</a>
+		{% else %}
+			<p class="heading is-size-3">Nothing to display</p>
+		{% endif %}
 	</div>
 </div>
-<div id="Coupons" class="section">
+
+<div id="Coupons" class="section has-background-light">
 	<div class="container">
-		
+		<h2 class="has-text-weight-light">Latest Coupons</h2>		
+		{% if coupons %}
+			<div class="columns">
+				{% for c in coupons %}
+					<div class="column is-3-desktop is-4-tablet">
+						<div class="card" style="min-height: 100%;">
+							<div class="card-image">
+								{% thumbnail c.product_image "400x300" crop="center" as im %}
+									<figure class="image is-4by3 is-marginless">
+										<img src="{{im.url}}" alt="Placeholder image">
+									</figure>
+								{% endthumbnail %}
+							</div>
+							<div class="card-content">
+								<div class="content">
+									<h3 class="is-size-6">{{c.product}}</h3>
+									<p class="is-size-7">{{c.product_desc|truncatewords:25|safe}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
 	</div>
 </div>
 

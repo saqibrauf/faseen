@@ -1,9 +1,18 @@
 html {
 	word-wrap: break-word;
+	padding-top: 164px;
+}
+
+.fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
 }
 
 .bg {
-	background-image: url(../images/coupons.jpg);
+	background-image: url(../images/bg.jpg);
 	background-size: cover;
-	background-position: center bottom;
+	background-position: center;
 }

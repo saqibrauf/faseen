@@ -20,11 +20,9 @@ class Country(models.Model):
 		ordering = ['country']
 
 
-
 class City(models.Model):
 	country = models.ForeignKey(Country, on_delete=models.CASCADE)
 	city = models.CharField(max_length=75)
-	city_code = models.CharField(max_length=75, unique=True)
 	city_slug = models.SlugField(max_length=75, blank=True, editable=False)
 
 	def save(self, *args, **kwargs):
@@ -39,27 +37,8 @@ class City(models.Model):
 		ordering = ['city']
 
 
-
-class Area(models.Model):
-	city = models.ForeignKey(City, on_delete=models.CASCADE)
-	area = models.CharField(max_length=75, unique=True)
-	area_slug = models.SlugField(max_length=75, blank=True, editable=False)
-
-	def save(self, *args, **kwargs):
-		self.area_slug = slugify(self.area)
-		super().save(*args, **kwargs)
-
-	def __str__(self):
-		return self.area.upper() + ' -> ' + self.city.city.upper()
-
-	class Meta:
-		verbose_name_plural = 'Areas'
-		ordering = ['area']
-
-
 class Store(models.Model):
 	city = models.ManyToManyField(City)
-	area = models.ManyToManyField(Area)
 	store = models.CharField(max_length=75, unique=True)
 	store_slug = models.SlugField(max_length=75, blank=True, editable=False)
 	store_logo = models.ImageField(upload_to = 'media/images/stores/')
@@ -75,7 +54,7 @@ class Store(models.Model):
 	class Meta:
 		verbose_name_plural = 'Stores'
 		ordering = ['store']
-		
+
 
 class Tag(models.Model):
 	tag = models.CharField(max_length=75)
@@ -93,10 +72,29 @@ class Tag(models.Model):
 		ordering = ['tag']
 
 
+class Category(models.Model):
+	cat = models.CharField(max_length=100, verbose_name='Category')
+	parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+	cat_slug = models.SlugField(max_length=100, blank=True, editable=False)
+
+	def save(self, *args, **kwargs):
+		self.cat = self.cat.title()
+		self.cat_slug = slugify(self.cat)
+		super().save(*args, **kwargs)
+
+	def __str__(self):
+		return self.cat.title()
+
+	class Meta:
+		verbose_name_plural = 'Categories'
+		ordering = ['cat']
+
+
 class Coupon(models.Model):
 	store = models.ForeignKey(Store, on_delete=models.CASCADE)
 	product = models.CharField(max_length=255)
 	product_slug = models.SlugField(max_length=255, blank=True, editable=False)
+	category = models.ManyToManyField(Category, blank=True)
 	price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8)
 	sale_price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8)
 	product_image = models.ImageField(upload_to = 'media/images/products/')
@@ -104,6 +102,7 @@ class Coupon(models.Model):
 	tags = models.ManyToManyField(Tag, blank=True)
 
 	def save(self, *args, **kwargs):
+		self.product = self.product.title()
 		self.product_slug = slugify(self.product)
 		super().save(*args, **kwargs)
 

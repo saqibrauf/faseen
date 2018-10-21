@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Country, City, Area, Store, Coupon
+from .models import Country, City, Store, Coupon, Tag, Category
 
 
 def index(request):
