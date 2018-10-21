@@ -4,9 +4,9 @@
 
 {% block 'content' %}
 
-<div id="Stores" class="section has-background-white">
+<div id="Stores" class="section has-background-white bg">
 	<div class="container">
-		<h2 class="has-text-weight-light">Hand-Picked Offers From Stores & Brands You Love</h2>		
+		<h2 class="has-text-white">Hand-Picked Offers From Stores & Brands You Love</h2>		
 		{% if stores %}
 		<div class="box is-radiusless">
 			<div class='carousel carousel-animated carousel-animate-slide has-text-centered' data-size="5">
@@ -39,9 +39,9 @@
 	</div>
 </div>
 
-<div id="Coupons" class="section has-background-light">
+<div id="Coupons" class="section">
 	<div class="container">
-		<h2 class="has-text-weight-light">Latest Coupons</h2>		
+		<h2>Latest Coupons</h2>		
 		{% if coupons %}
 			<div class="columns">
 				{% for c in coupons %}
