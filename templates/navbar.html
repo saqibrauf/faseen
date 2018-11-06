@@ -1,8 +1,22 @@
 {% load static %}
 
-<nav class="navbar is-info">
+<nav class="navbar is-success">
     <div class="container">
         <div class="navbar-brand">
+            <a class="navbar-item has-background-success" href=""><img src="{% static 'images/black.png' %}" alt="Faseen" style="margin-top: -2.5rem;"></a>
+            <div class="navbar-item is-hidden-desktop">
+                <div class="field">
+                    <div class="control">
+                        <div class="select is-success is-small">
+                            <select>
+                                <option>SELECT YOUR CITY</option>
+                                <option>JEDDAH</option>
+                                <option>RIYADH</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="navbar-burger burger" data-target="navMain">
                 <span></span>
                 <span></span>
@@ -14,6 +28,21 @@
                 <a class="navbar-item is-uppercase" href="">All Stores</a>
                 <a class="navbar-item is-uppercase" href="">Categories</a>
                 <a class="navbar-item is-uppercase" href="">Blog</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item is-hidden-touch">
+                    <div class="field">
+                        <div class="control">
+                            <div class="select is-success">
+                                <select>
+                                    <option>SELECT YOUR CITY</option>
+                                    <option>JEDDAH</option>
+                                    <option>RIYADH</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

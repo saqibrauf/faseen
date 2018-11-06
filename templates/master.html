@@ -6,34 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FA6EEN</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="icon" href="{% static 'images/shopping-cart.png' %}" type="image/png">
 	<link rel="stylesheet" href="{% static 'css/bulma.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bulma-carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <div class="fixed">
-        <header class="section has-background-black bg" style="padding: 2rem 1.5rem;">
-            <div class="container">
-                <div class="columns is-vcentered is-mobile">
-                    <div class="column is-narrow has-text-centered-mobile">
-                        <h2 class="is-size-3 has-text-weight-bold is-marginless"><a class="has-text-white" href="{% url 'index' %}">FA6EEN</a></h2>
-                    </div>
-                    <div class="column">
-                        <div class="field has-addons">
-                            <div class="control is-expanded">
-                                <input class="input is-medium" type="text" placeholder="Search for coupons, stores and categories.">
-                            </div>
-                            <div class="control">
-                                <a class="button is-info is-medium">Search</a>
-                            </div>
-                        </div>
-                    </div>
+    <header class="fixed">
+        <div class="notification is-light is-radiusless is-marginless" style="padding: 0.5rem;">
+            <div class="container has-text-right">
+                <a class="is-size-7-mobile" href=""><span class="icon"><i class="fas fa-sign-in-alt"></i></span><span>LOGIN</span></a> |
+                <a class="is-size-7-mobile" href=""><span class="icon"><i class="fas fa-user-plus"></i></span><span>REGISTER</span></a> |
+                <a class="is-size-7-mobile" href=""><span class="icon"><i class="fas fa-shopping-cart"></i></span><span>CART</span></a>
+            </div>
+        </div>
+        {% include 'navbar.html' %}
+    </header>
+    <div class="notification is-hidden">
+        <div class="container">
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input is-medium" type="text" placeholder="Search for coupons, stores and categories.">
+                </div>
+                <div class="control">
+                    <a class="button is-info is-medium">Search</a>
                 </div>
             </div>
-        </header>
-        {% include 'navbar.html' %}
+        </div>
     </div>
-
+    
     <main class="content is-marginless">
     	{% block 'content' %}{% endblock %}
     </main>
@@ -44,12 +44,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bulma-carousel.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/ui.js' %}"></script>
-    <script type="text/javascript">
-       $( document ).ready(function() {
-           var carousels = bulmaCarousel.attach(); // carousels now contains an array of all Carousel instances
-        });
-    </script>
 </body>
 </html>

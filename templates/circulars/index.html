@@ -4,42 +4,32 @@
 
 {% block 'content' %}
 
-<div id="Stores" class="section has-background-white bg">
+<div id="Stores" class="section has-background-white">
 	<div class="container">
-		<h2 class="has-text-white">Hand-Picked Offers From Stores & Brands You Love</h2>		
+		<h2 class="is-size-5">Hand-Picked Offers From Stores & Brands You Love</h2>		
 		{% if stores %}
-		<div class="box is-radiusless">
-			<div class='carousel carousel-animated carousel-animate-slide has-text-centered' data-size="5">
-				<div class='carousel-container'>
-					{% for s in stores|slice:':10' %}   
-						{% thumbnail s.store_logo "180x90" crop="center" as im %}
-							<div class='carousel-item'>
+			<div class="box is-radiusless">				
+				<div class='columns is-multiline'>
+					{% for s in stores|slice:':12' %}   
+						{% thumbnail s.logo "512x256" crop="center" as im %}
+							<div class='column is-2-desktop is-3-tablet has-text-centered'>
 								<figure class="image is-2by1 is-marginless">
-									<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+									<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 								</figure>
-								<div class="title">{{s.store}}</div>
+								<figcaption class="is-size-7 has-background-dark has-text-white">{{s.name|title}}</figcaption>
 							</div>
 						{% endthumbnail %}
 					{% endfor %}		
-				</div>
-				<div class="carousel-navigation is-overlay">
-					<div class="carousel-nav-left">
-						<span class="icon is-large"><i class="fas fa-3x fa-caret-square-left"></i></span>
-					</div>
-					<div class="carousel-nav-right">
-						<span class="icon is-large"><i class="fas fa-3x fa-caret-square-right"></i></span>
-					</div>
-				</div>
+				</div>				
+				<a class="button is-dark is-outlined" href="/">View All Stores</a>
 			</div>
-			<a class="button is-dark is-outlined" href="/">View All Stores</a>
-		</div>
 		{% else %}
 			<p class="heading is-size-3">Nothing to display</p>
 		{% endif %}
 	</div>
 </div>
 
-<div id="Coupons" class="section">
+<div id="Coupons" class="section has-background-light">
 	<div class="container">
 		<h2>Latest Coupons</h2>		
 		{% if coupons %}

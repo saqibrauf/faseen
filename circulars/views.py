@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Country, City, Store, Coupon, Tag, Category
+from .models import Location, Store, Coupon, Tag, Category
 
 
 def index(request):
@@ -9,4 +9,4 @@ def index(request):
 		'coupons' : coupons,
 		'stores' : stores,
 	}
-	return render(request, 'flyers/index.html', context)
+	return render(request, 'circulars/index.html', context)
