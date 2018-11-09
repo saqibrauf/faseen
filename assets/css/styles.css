@@ -1,18 +1,32 @@
 html {
 	word-wrap: break-word;
-	padding-top: 80px;
+	/*padding-top: 123px;*/
 }
 
-.fixed {
+/*.fixed {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 9999;
-}
+}*/
 
 .bg {
 	background-image: url(../images/bg.jpg);
 	background-size: cover;
 	background-position: center;
+}
+
+figcaption {
+	padding: .25rem .5rem;
+}
+
+@media screen and (min-width: 1088px) {
+	#Logo {
+		margin-left: .75rem;
+	}
+	.container.is-fluid {
+	    margin-left: 1rem;
+	    margin-right: 1rem;
+	}
 }

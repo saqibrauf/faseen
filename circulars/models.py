@@ -72,29 +72,52 @@ class Category(MPTTModel):
 		return self.name.upper()
 
 
-class Coupon(models.Model):
-	store = models.ForeignKey(Store, on_delete=models.CASCADE)
-	product = models.CharField(max_length=255)
-	product_slug = models.SlugField(max_length=255, blank=True, editable=False)
-	category = models.ManyToManyField(Category, blank=True)
-	price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8)
-	sale_price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8)
-	product_image = models.ImageField(upload_to = 'media/images/products/')
-	product_desc = models.TextField(blank=True)
-	tags = models.ManyToManyField(Tag, blank=True)
+class Circular(models.Model):
+	store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='circulars')
+	title = models.CharField(max_length=255)
+	CIRCULAR_TYPE = (
+		('flyer', 'Flyer'),
+		('coupon', 'Coupon')
+	)
+	c_type = models.CharField(max_length=12, choices=CIRCULAR_TYPE, default='coupon', verbose_name='Type')
+	date_created = models.DateField(default=date.today, editable=False)
+	date_expired = models.DateField(default=date.today)
+	slug = models.SlugField(max_length=255, blank=True, editable=False)	
+	image = models.ImageField(upload_to='media/images/circulars')
+	#desc = models.TextField(blank=True)	
 
 	class Meta:
-		verbose_name_plural = 'Coupons'
-		ordering = ['product']	
+		verbose_name_plural = 'circulars'
+		ordering = ['date_created']	
 
 	def __str__(self):
-		return self.product.title()
+		return self.title.title()
 
 	def save(self, *args, **kwargs):
-		self.product = self.product.title()
-		self.product_slug = slugify(self.product)
+		self.title = self.title.title()
+		self.slug = slugify(self.title)
 		super().save(*args, **kwargs)
 
+class Product(models.Model):
+	circular = models.ForeignKey(Circular, on_delete=models.CASCADE, related_name='products')
+	name = models.CharField(max_length=255)
+	slug = models.SlugField(max_length=255, blank=True, editable=False)
+	r_price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8, verbose_name='Regular Price')
+	s_price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8, verbose_name='Sale Price')
+	image = models.ImageField(upload_to='media/images/products')
+	desc = models.TextField(blank=True)
+	tags = models.ManyToManyField(Tag, blank=True)
+	categories = models.ManyToManyField(Category, blank=True)
 	
+	class Meta:
+		verbose_name_plural = 'Products'
+		ordering = ['name']	
 
+	def __str__(self):
+		return self.name.title()
+
+	def save(self, *args, **kwargs):
+		self.name = self.name.title()
+		self.slug = slugify(self.name)
+		super().save(*args, **kwargs)
 

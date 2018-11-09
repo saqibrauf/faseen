@@ -1,0 +1,60 @@
+{% extends 'master_sidebar.html' %}
+{% load thumbnail %}
+
+{% block 'aside' %}
+	{% thumbnail store.logo "512x256" crop="center" as im %}
+		<figure class="image is-2by1 is-marginless">
+			<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+		</figure>
+	{% endthumbnail %}
+	<h1>{{ store.name }}</h1>
+	<div class="content">
+		{{store.desc}}
+	</div>
+{% endblock %}
+
+{% block 'main' %}
+	{% if circulars %}
+		<h2>Circulars From {{ store.name }}</h2>
+		{% for c in circulars %}
+			<div class="box">
+				<div class="columns is-multiline">
+					<div class="column is-4-desktop">
+						{% thumbnail c.image "400x300" crop="center" as im %}
+							<figure class="image is-4by3 is-marginless">
+								<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+							</figure>
+						{% endthumbnail %}
+						<h3>{{ c.name }}</h3>							
+						<p class="tag is-info is-large">Valid till {{ c.date_expired }}</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+	<hr>
+	{% if coupons %}
+		<h2>Coupons From {{ store.name }}</h2>
+		{% for coupon in coupons %}
+			{% for p in coupon.products.all %}
+				<div class="box">
+					<div class="columns is-desktop">
+						<div class="column is-4-desktop">
+							{% thumbnail p.image "400x300" crop="center" as im %}
+								<figure class="image is-4by3 is-marginless">
+									<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+								</figure>
+							{% endthumbnail %}
+						</div>
+						<div class="column is-8-desktop">
+							<h3>{{ p.name }}</h3>
+							<p>{{ p.desc }}</p>
+							<p><span class="is-size-5"><del>{{p.r_price}}</del></span><span class="is-size-2 has-text-black has-text-weight-bold">{{ p.s_price }}</span></p>
+							<p class="tag is-info is-large">Valid till {{ p.circular.date_expired }}</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	{% endif %}
+{% endblock %}

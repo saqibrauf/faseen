@@ -1,57 +1,94 @@
-{% extends 'master.html' %}
+{% extends 'master_full.html' %}
 {% load thumbnail %}
 {% load static %}
 
-{% block 'content' %}
+{% block 'main' %}
 
 <div id="Stores" class="section has-background-white">
-	<div class="container">
-		<h2 class="is-size-5">Hand-Picked Offers From Stores & Brands You Love</h2>		
+	<div class="container is-fluid">
+		<h2>Recently Added Stores</h2>		
 		{% if stores %}
 			<div class="box is-radiusless">				
 				<div class='columns is-multiline'>
 					{% for s in stores|slice:':12' %}   
 						{% thumbnail s.logo "512x256" crop="center" as im %}
-							<div class='column is-2-desktop is-3-tablet has-text-centered'>
-								<figure class="image is-2by1 is-marginless">
-									<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-								</figure>
-								<figcaption class="is-size-7 has-background-dark has-text-white">{{s.name|title}}</figcaption>
+							<div class='column is-2-desktop is-3-tablet'>
+								<a href="{% url 'store_detail' s.slug %}">
+									<figure class="image is-2by1 is-marginless">
+										<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+									</figure>
+									<figcaption class="is-size-7 has-background-dark has-text-white">{{s.name|title}}</figcaption>
+								</a>
 							</div>
 						{% endthumbnail %}
 					{% endfor %}		
-				</div>				
-				<a class="button is-dark is-outlined" href="/">View All Stores</a>
+				</div>	
 			</div>
+			<a class="button is-dark is-outlined" href="/">View All Stores</a>
 		{% else %}
 			<p class="heading is-size-3">Nothing to display</p>
 		{% endif %}
 	</div>
 </div>
 
-<div id="Coupons" class="section has-background-light">
-	<div class="container">
-		<h2>Latest Coupons</h2>		
-		{% if coupons %}
+<div id="Circulars" class="section has-background-light">
+	<div class="container is-fluid">
+		<h2>Latest Circulars</h2>		
+		{% if circulars %}
 			<div class="columns is-multiline">
-				{% for c in coupons %}
+				{% for circular in circulars %}
 					<div class="column is-3-desktop is-4-tablet">
 						<div class="card" style="min-height: 100%;">
 							<div class="card-image">
-								{% thumbnail c.product_image "400x300" crop="center" as im %}
-									<figure class="image is-4by3 is-marginless">
+								{% thumbnail circular.image "512x256" crop="center" as im %}
+									<figure class="image is-2by1 is-marginless">
 										<img src="{{im.url}}" alt="Placeholder image">
 									</figure>
 								{% endthumbnail %}
 							</div>
 							<div class="card-content">
 								<div class="content">
-									<h3 class="is-size-6">{{c.product}}</h3>
-									<p class="is-size-7">{{c.product_desc|truncatewords:25|safe}}</p>
+									<h3 class="is-size-6">{{circular.title}}</h3>
+									<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' circular.store.slug %}">{{ circular.store.name }}</a></p>
 								</div>
 							</div>
 						</div>
 					</div>
+				{% empty %}
+					<p>No Product</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<div id="Coupons" class="section">
+	<div class="container is-fluid">
+		<h2>Latest Coupons</h2>		
+		{% if coupons %}
+			<div class="columns is-multiline">
+				{% for coupon in coupons %}
+					{% for p in coupon.products.all %}
+						<div class="column is-3-desktop is-4-tablet">
+							<div class="card" style="min-height: 100%;">
+								<div class="card-image">
+									{% thumbnail p.image "512x256" crop="center" as im %}
+										<figure class="image is-2by1 is-marginless">
+											<img src="{{im.url}}" alt="Placeholder image">
+										</figure>
+									{% endthumbnail %}
+								</div>
+								<div class="card-content">
+									<div class="content">
+										<h3 class="is-size-6">{{p.name}}</h3>
+										<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' p.circular.store.slug %}">{{ p.circular.store.name }}</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				{% empty %}
+					<p>No Product</p>
 				{% endfor %}
 			</div>
 		{% endif %}

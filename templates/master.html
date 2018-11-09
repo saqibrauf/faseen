@@ -5,34 +5,37 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FA6EEN</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link rel="icon" href="{% static 'images/shopping-cart.png' %}" type="image/png">
 	<link rel="stylesheet" href="{% static 'css/bulma.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    
     <header class="fixed">
-        <div class="notification is-light is-radiusless is-marginless" style="padding: 0.5rem;">
-            <div class="container has-text-right">
-                <a class="is-size-7-mobile" href=""><span class="icon"><i class="fas fa-sign-in-alt"></i></span><span>LOGIN</span></a> |
-                <a class="is-size-7-mobile" href=""><span class="icon"><i class="fas fa-user-plus"></i></span><span>REGISTER</span></a> |
-                <a class="is-size-7-mobile" href=""><span class="icon"><i class="fas fa-shopping-cart"></i></span><span>CART</span></a>
-            </div>
-        </div>
         {% include 'navbar.html' %}
-    </header>
-    <div class="notification is-hidden">
-        <div class="container">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input class="input is-medium" type="text" placeholder="Search for coupons, stores and categories.">
-                </div>
-                <div class="control">
-                    <a class="button is-info is-medium">Search</a>
+        <div class="notification is-info is-radiusless is-marginless" style="padding: 1rem;">
+            <div class="container is-fluid">
+               <div class="field has-addons is-marginless">
+                    <p class="control">
+                        <p class="select">
+                            <select style="border-radius: 0;">
+                                <option>SELECT CITY</option>
+                                <option>JEDDAH</option>
+                                <option>RIYADH</option>
+                            </select>
+                        </p>
+                    </p>
+                    <p class="control is-expanded">
+                        <input type="text" class="input" name="query">
+                    </p>
+                    <p class="control">
+                        <button type="submit" class="button" name="Search" value="Search" >Search</button>
+                    </p>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
     
     <main class="content is-marginless">
     	{% block 'content' %}{% endblock %}
