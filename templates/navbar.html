@@ -12,7 +12,14 @@
         </div>
         <div id="navMain" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item is-uppercase" href="">All Stores</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link is-uppercase" href="">All Stores</a>
+                    <div class="navbar-dropdown">
+                        {% for s in STORES_MENU %}
+                            <a class="navbar-item" href="{% url 'store_detail' s.slug %}">{{s.name|title}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
                 <a class="navbar-item is-uppercase" href="">Categories</a>
                 <a class="navbar-item is-uppercase" href="">Blog</a>
             </div>

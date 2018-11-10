@@ -1,25 +1,25 @@
 from django.shortcuts import render
-from .models import Location, Store, Circular, Tag, Category
+from .models import Location, Store, Flyer,Coupon, Product, Tag, Category
 
 
 def index(request):
-	coupons = Circular.objects.filter(c_type='coupon')
-	circulars = Circular.objects.filter(c_type='flyer')
 	stores = Store.objects.all()
+	coupons = Coupon.objects.all()
+	flyers = Flyer.objects.all()
 	context = {
-		'coupons' : coupons,
 		'stores' : stores,
-		'circulars' : circulars,
+		'coupons' : coupons,
+		'flyers' : flyers,
 	}
 	return render(request, 'circulars/index.html', context)
 
 def store_detail(request, slug):
 	store = Store.objects.get(slug=slug)
-	coupons = store.circulars.filter(c_type='coupon')
-	circulars = Circular.objects.filter(c_type='flyer')
+	coupons = store.coupons.all()
+	flyers = store.flyers.all()
 	context = {
 		'store' : store,
 		'coupons' : coupons,
-		'circulars' : circulars,
+		'flyers' : flyers,
 	}
 	return render(request, 'circulars/store_detail.html', context)

@@ -34,13 +34,13 @@
 <div id="Circulars" class="section has-background-light">
 	<div class="container is-fluid">
 		<h2>Latest Circulars</h2>		
-		{% if circulars %}
+		{% if flyers %}
 			<div class="columns is-multiline">
-				{% for circular in circulars %}
+				{% for f in flyers %}
 					<div class="column is-3-desktop is-4-tablet">
 						<div class="card" style="min-height: 100%;">
 							<div class="card-image">
-								{% thumbnail circular.image "512x256" crop="center" as im %}
+								{% thumbnail f.image "512x256" crop="center" as im %}
 									<figure class="image is-2by1 is-marginless">
 										<img src="{{im.url}}" alt="Placeholder image">
 									</figure>
@@ -48,8 +48,8 @@
 							</div>
 							<div class="card-content">
 								<div class="content">
-									<h3 class="is-size-6">{{circular.title}}</h3>
-									<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' circular.store.slug %}">{{ circular.store.name }}</a></p>
+									<h3 class="is-size-6">{{f.title}}</h3>
+									<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' f.store.slug %}">{{ f.store.name }}</a></p>
 								</div>
 							</div>
 						</div>
@@ -67,26 +67,24 @@
 		<h2>Latest Coupons</h2>		
 		{% if coupons %}
 			<div class="columns is-multiline">
-				{% for coupon in coupons %}
-					{% for p in coupon.products.all %}
-						<div class="column is-3-desktop is-4-tablet">
-							<div class="card" style="min-height: 100%;">
-								<div class="card-image">
-									{% thumbnail p.image "512x256" crop="center" as im %}
-										<figure class="image is-2by1 is-marginless">
-											<img src="{{im.url}}" alt="Placeholder image">
-										</figure>
-									{% endthumbnail %}
-								</div>
-								<div class="card-content">
-									<div class="content">
-										<h3 class="is-size-6">{{p.name}}</h3>
-										<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' p.circular.store.slug %}">{{ p.circular.store.name }}</a></p>
-									</div>
+				{% for p in coupons %}
+					<div class="column is-3-desktop is-4-tablet">
+						<div class="card" style="min-height: 100%;">
+							<div class="card-image">
+								{% thumbnail p.product.image "512x256" crop="center" as im %}
+									<figure class="image is-2by1 is-marginless">
+										<img src="{{im.url}}" alt="Placeholder image">
+									</figure>
+								{% endthumbnail %}
+							</div>
+							<div class="card-content">
+								<div class="content">
+									<h3 class="is-size-6">{{p.product.name}}</h3>
+									<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' p.store.slug %}">{{ p.store.name }}</a></p>
 								</div>
 							</div>
 						</div>
-					{% endfor %}
+					</div>
 				{% empty %}
 					<p>No Product</p>
 				{% endfor %}

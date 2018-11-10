@@ -36,7 +36,10 @@
             </div>
         </div>
     </header>
-    
+
+    {% for s in stores_menu %}
+        {{s.name}}
+    {% endfor %}    
     <main class="content is-marginless">
     	{% block 'content' %}{% endblock %}
     </main>

@@ -72,22 +72,17 @@ class Category(MPTTModel):
 		return self.name.upper()
 
 
-class Circular(models.Model):
-	store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='circulars')
+class Flyer(models.Model):
+	store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='flyers')
 	title = models.CharField(max_length=255)
-	CIRCULAR_TYPE = (
-		('flyer', 'Flyer'),
-		('coupon', 'Coupon')
-	)
-	c_type = models.CharField(max_length=12, choices=CIRCULAR_TYPE, default='coupon', verbose_name='Type')
 	date_created = models.DateField(default=date.today, editable=False)
 	date_expired = models.DateField(default=date.today)
 	slug = models.SlugField(max_length=255, blank=True, editable=False)	
-	image = models.ImageField(upload_to='media/images/circulars')
-	#desc = models.TextField(blank=True)	
+	image = models.ImageField(upload_to='media/images/flyers')
+	desc = models.TextField(blank=True)	
 
 	class Meta:
-		verbose_name_plural = 'circulars'
+		verbose_name_plural = 'Flyers'
 		ordering = ['date_created']	
 
 	def __str__(self):
@@ -98,12 +93,25 @@ class Circular(models.Model):
 		self.slug = slugify(self.title)
 		super().save(*args, **kwargs)
 
+class Coupon(models.Model):
+	store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='coupons')
+	date_created = models.DateField(default=date.today, editable=False)
+	date_expired = models.DateField(default=date.today)
+
+	class Meta:
+		verbose_name_plural = 'Coupons'
+		ordering = ['date_created']	
+
+	def __str__(self):
+		return self.product.name.title()
+
 class Product(models.Model):
-	circular = models.ForeignKey(Circular, on_delete=models.CASCADE, related_name='products')
+	flyer = models.ForeignKey(Flyer, on_delete=models.CASCADE, blank=True, null=True, related_name='products')
+	coupon = models.OneToOneField(Coupon, on_delete=models.CASCADE, blank=True, null=True, related_name='product')
 	name = models.CharField(max_length=255)
 	slug = models.SlugField(max_length=255, blank=True, editable=False)
-	r_price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8, verbose_name='Regular Price')
-	s_price = models.DecimalField(default=0, decimal_places=2, blank=True, max_digits=8, verbose_name='Sale Price')
+	r_price = models.DecimalField(default=0, decimal_places=2, max_digits=8, verbose_name='Regular Price')
+	s_price = models.DecimalField(default=0, decimal_places=2, max_digits=8, verbose_name='Sale Price')
 	image = models.ImageField(upload_to='media/images/products')
 	desc = models.TextField(blank=True)
 	tags = models.ManyToManyField(Tag, blank=True)
