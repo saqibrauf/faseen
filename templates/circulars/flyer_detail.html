@@ -2,42 +2,37 @@
 {% load thumbnail %}
 
 {% block 'aside' %}
-	{% thumbnail store.logo "512x256" crop="center" as im %}
+	{% thumbnail flyer.image "512x256" crop="center" as im %}
 		<figure class="image is-2by1 is-marginless">
 			<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 		</figure>
 	{% endthumbnail %}
-	<h1>{{ store.name }}</h1>
+	<h1>{{ flyer.title }}</h1>
 	<div class="content">
-		{{store.desc}}
+		{{flyer.desc}}
 	</div>
 {% endblock %}
 
 {% block 'main' %}
-	{% if flyers %}
-		<h2>Flyers From {{ store.name }}</h2>
-		{% for f in flyers %}
-			<div class="notification is-light">
-				<div class="columns is-multiline">
-					<div class="column is-4-desktop" style="min-height: 100%">
-						<div class="card" style="min-height: 100%;">
-							<div class="card-image">
-								{% thumbnail f.image "512x256" crop="center" as im %}
-									<figure class="image is-2by1 is-marginless">
-										<img src="{{im.url}}" alt="Placeholder image">
-									</figure>
-								{% endthumbnail %}
-							</div>
-							<div class="card-content">
-								<div class="content">
-									<a href="{% url 'flyer_detail' f.slug %}">
-										<h3 class="is-size-6">{{f.title}}</h3>
-										<p>{{ f.desc|truncatewords:20 }}</p>
-									</a>
-									<p class="tag is-dark">Valid Till {{ f.date_expired }}</p>
-								</div>
-							</div>
+	{% if products %}
+		{% for p in products %}
+			<div class="notification is-radiusless">
+				<div class="columns is-desktop">
+					<div class="column is-3-desktop">
+						{% thumbnail p.image "400x300" crop="center" as im %}
+							<figure class="image is-4by3 is-marginless">
+								<img class="is-block" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+							</figure>
+						{% endthumbnail %}
+					</div>
+					<div class="column is-9-desktop">
+						<h3>{{ p.name }}</h3>
+						<p>{{ p.desc|truncatewords:20 }}</p>
+						<div class="tags">
+							<p class="tag is-medium is-dark"><span class="is-size-5"><del>{{p.r_price}}</del></span> - <span class="is-size-4 has-text-weight-bold">{{ p.s_price }}</span></p>
+							<p class="tag is-medium is-info">Valid Till {{ p.flyer.date_expired }}</p>
 						</div>
+						
 					</div>
 				</div>
 			</div>

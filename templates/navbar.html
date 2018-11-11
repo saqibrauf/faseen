@@ -1,9 +1,9 @@
 {% load static %}
 
-<nav class="navbar is-white">
+<nav class="navbar is-dark">
     <div class="container is-fluid">
         <div class="navbar-brand">
-            <a id="Logo" class="navbar-item has-background-white" href="{% url 'index' %}"><img src="{% static 'images/logo.jpg' %}" alt="Faseen"></a>
+            <a class="navbar-item" href="{% url 'index' %}"><img src="{% static 'images/black.png' %}" alt="Faseen"></a>
             <div class="navbar-burger burger" data-target="navMain">
                 <span></span>
                 <span></span>
@@ -13,11 +13,13 @@
         <div id="navMain" class="navbar-menu">
             <div class="navbar-start">
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link is-uppercase" href="">All Stores</a>
+                    <a class="navbar-link is-uppercase" href="{% url 'all_stores' %}">All Stores</a>
                     <div class="navbar-dropdown">
-                        {% for s in STORES_MENU %}
+                        {% for s in STORES_MENU|slice:':10' %}
                             <a class="navbar-item" href="{% url 'store_detail' s.slug %}">{{s.name|title}}</a>
                         {% endfor %}
+                        <hr class="navbar-divider">
+                        <a class="navbar-item has-text-weight-bold is-uppercase" href="{% url 'all_stores' %}">View All Stores</a>
                     </div>
                 </div>
                 <a class="navbar-item is-uppercase" href="">Categories</a>
@@ -31,14 +33,14 @@
                                 <a class="button is-dark is-outlined" href=""><span class="icon"><i class="fas fa-sign-in-alt"></i></span><span>LOGIN</span></a>
                             </p>
                             <p class="control">
-                                <a class="button is-dark is-outlined" href=""><span class="icon"><i class="fas fa-user-plus"></i></span><span>REGISTER</span></a>
+                                <a class="button is-light is-uppercase" href=""><span class="icon"><i class="fas fa-user-plus"></i></span><span>REGISTER</span></a>
                             </p>
                         {% else %}
                             <p class="control">
-                                <a class="button is-dark is-outlined is-uppercase" href="">Welcome {{ user.username }}</a>
+                                <a class="button is-light is-uppercase" href="">Welcome {{ user.username }}</a>
                             </p>
                             <p class="control">
-                                <a class="button is-dark is-outlined" href=""><span class="icon"><i class="fas fa-sign-out-alt"></i></span><span>LOGOUT</span></a>
+                                <a class="button is-light is-uppercase" href=""><span class="icon"><i class="fas fa-sign-out-alt"></i></span><span>LOGOUT</span></a>
                             </p>
                         {% endif %}
                         <p class="control">

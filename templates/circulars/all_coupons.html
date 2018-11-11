@@ -1,0 +1,37 @@
+{% extends 'master_full.html' %}
+{% load thumbnail %}
+{% load static %}
+
+{% block 'main' %}
+
+<div id="Coupons" class="section">
+	<div class="container is-fluid">
+		<h1>All Coupons</h1>		
+		{% if coupons %}
+			<div class="columns is-multiline">
+				{% for c in coupons %}
+					<div class="column is-3-desktop is-4-tablet">
+						<div class="card" style="min-height: 100%;">
+							<div class="card-image">
+								{% thumbnail c.product.image "512x256" crop="center" as im %}
+									<figure class="image is-2by1 is-marginless">
+										<img src="{{im.url}}" alt="Placeholder image">
+									</figure>
+								{% endthumbnail %}
+							</div>
+							<div class="card-content">
+								<div class="content">
+									<h3><a class="has-text-black" href="{% url 'store_detail' c.store.slug %}">{{ c.product.name }}</a></h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<p>No Product</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

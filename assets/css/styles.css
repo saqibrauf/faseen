@@ -11,10 +11,12 @@ html {
 	z-index: 9999;
 }*/
 
-.bg {
-	background-image: url(../images/bg.jpg);
-	background-size: cover;
-	background-position: center;
+.card-content {
+	padding: .75rem;
+}
+
+.column {
+	min-height: 100%;
 }
 
 figcaption {
