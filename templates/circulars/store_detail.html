@@ -16,9 +16,9 @@
 {% block 'main' %}
 	{% if flyers %}
 		<h2>Flyers From {{ store.name }}</h2>
-		{% for f in flyers %}
-			<div class="notification is-light">
-				<div class="columns is-multiline">
+		<div class="notification is-light">
+			<div class="columns is-multiline">
+				{% for f in flyers %}
 					<div class="column is-4-desktop" style="min-height: 100%">
 						<div class="card" style="min-height: 100%;">
 							<div class="card-image">
@@ -39,9 +39,10 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				{% endfor %}
 			</div>
-		{% endfor %}
+		</div>
+		
 	{% endif %}
 	
 	{% if coupons %}
