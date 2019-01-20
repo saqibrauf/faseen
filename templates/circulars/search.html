@@ -1,0 +1,103 @@
+{% extends 'master_full.html' %}
+{% load thumbnail %}
+{% load static %}
+
+{% block 'main' %}
+
+<div id="Stores" class="section has-background-white">
+	<div class="container is-fluid">
+		<h2>Recently Added Stores</h2>		
+		{% if stores %}
+			<div class='columns is-multiline'>
+				{% for s in stores|slice:':12' %} 
+					<div class="column is-2-desktop is-3-tablet">
+						<div class="card" style="min-height: 100%;">
+							<div class="card-image">
+								{% thumbnail s.logo "512x256" crop="center" as im %}
+									<figure class="image is-2by1 is-marginless">
+										<img src="{{im.url}}" alt="Placeholder image">
+									</figure>
+								{% endthumbnail %}
+							</div>
+							<div class="card-content">
+								<div class="content">
+									<h3 class="is-size-7"><a class="has-text-black" href="{% url 'store_detail' s.slug %}">{{ s.name }}</a></h3>
+								</div>
+							</div>
+						</div>
+					</div> 
+				{% endfor %}	
+				
+			</div>	
+			<a class="has-text-black is-uppercase" href="{% url 'all_stores' %}"><span>View All Stores</span><span class="icon"><i class="fas fa-arrow-right"></i></span></a>	
+		{% else %}
+			<p class="heading is-size-3">Nothing to display</p>
+		{% endif %}
+	</div>
+</div>
+
+<div id="Flyers" class="section has-background-light">
+	<div class="container is-fluid">
+		<h2>Latest Flyers</h2>		
+		{% if flyers|slice:':8' %}
+			<div class="columns is-multiline">
+				{% for f in flyers %}
+					<div class="column is-3-desktop is-4-tablet">
+						<div class="card" style="min-height: 100%;">
+							<div class="card-image">
+								{% thumbnail f.image "512x256" crop="center" as im %}
+									<figure class="image is-2by1 is-marginless">
+										<img src="{{im.url}}" alt="Placeholder image">
+									</figure>
+								{% endthumbnail %}
+							</div>
+							<div class="card-content">
+								<div class="content">
+									<h3 class="is-size-6"><a href="{% url 'flyer_detail' f.slug %}">{{f.title}}</a></h3>
+									<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' f.store.slug %}">{{ f.store.name }}</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<p>No Product</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+		<a class="has-text-black is-uppercase" href="{% url 'all_flyers' %}"><span>View All Flyers</span><span class="icon"><i class="fas fa-arrow-right"></i></span></a>
+	</div>
+</div>
+
+<div id="Coupons" class="section">
+	<div class="container is-fluid">
+		<h2>Latest Coupons</h2>		
+		{% if coupons|slice:':8' %}
+			<div class="columns is-multiline">
+				{% for p in coupons %}
+					<div class="column is-3-desktop is-4-tablet">
+						<div class="card" style="min-height: 100%;">
+							<div class="card-image">
+								{% thumbnail p.product.image "512x256" crop="center" as im %}
+									<figure class="image is-2by1 is-marginless">
+										<img src="{{im.url}}" alt="Placeholder image">
+									</figure>
+								{% endthumbnail %}
+							</div>
+							<div class="card-content">
+								<div class="content">
+									<h3 class="is-size-6">{{p.product.name}}</h3>
+									<p><a class="button is-dark is-outlined is-small" href="{% url 'store_detail' p.store.slug %}">{{ p.store.name }}</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<p>No Product</p>
+				{% endfor %}
+			</div>
+		{% endif %}
+		<a class="has-text-black is-uppercase" href="{% url 'all_coupons' %}"><span>View All Coupons</span><span class="icon"><i class="fas fa-arrow-right"></i></span></a>
+	</div>
+</div>
+
+{% endblock %}

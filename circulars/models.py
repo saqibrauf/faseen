@@ -21,7 +21,7 @@ class Location(MPTTModel):
 
 
 class Store(models.Model):
-	location = models.ManyToManyField(Location)
+	location = models.ManyToManyField(Location, related_name='stores')
 	name = models.CharField(max_length=150, unique=True)
 	slug = models.SlugField(max_length=150, blank=True, editable=False)
 	logo = models.ImageField(upload_to = 'media/images/stores/')
@@ -114,8 +114,8 @@ class Product(models.Model):
 	s_price = models.DecimalField(default=0, decimal_places=2, max_digits=8, verbose_name='Sale Price')
 	image = models.ImageField(upload_to='media/images/products')
 	desc = models.TextField(blank=True)
-	tags = models.ManyToManyField(Tag, blank=True)
-	categories = models.ManyToManyField(Category, blank=True)
+	tags = models.ManyToManyField(Tag, blank=True, related_name='products')
+	categories = models.ManyToManyField(Category, blank=True, related_name='products')
 	
 	class Meta:
 		verbose_name_plural = 'Products'

@@ -16,7 +16,7 @@
 {% block 'main' %}
 	{% if products %}
 		{% for p in products %}
-			<div class="notification is-radiusless">
+			<div class="box is-radiusless">
 				<div class="columns is-desktop">
 					<div class="column is-3-desktop">
 						{% thumbnail p.image "400x300" crop="center" as im %}
@@ -29,8 +29,8 @@
 						<h3>{{ p.name }}</h3>
 						<p>{{ p.desc|truncatewords:20 }}</p>
 						<div class="tags">
-							<p class="tag is-medium is-dark"><span class="is-size-5"><del>{{p.r_price}}</del></span> - <span class="is-size-4 has-text-weight-bold">{{ p.s_price }}</span></p>
-							<p class="tag is-medium is-info">Valid Till {{ p.flyer.date_expired }}</p>
+							<span class="tag is-medium is-dark"><span class="is-size-5"><del>{{p.r_price}}</del></span> - <span class="is-size-4 has-text-weight-bold">{{ p.s_price }}</span></span>
+							<span class="tag is-medium is-info">Add To Cart</span>
 						</div>
 						
 					</div>

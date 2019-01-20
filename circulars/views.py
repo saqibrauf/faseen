@@ -3,13 +3,9 @@ from .models import Location, Store, Flyer, Coupon, Product, Tag, Category
 
 
 def index(request):
-	stores = Store.objects.all()
-	coupons = Coupon.objects.all()
-	flyers = Flyer.objects.all()
+	products = Product.objects.order_by('-id')
 	context = {
-		'stores' : stores,
-		'coupons' : coupons,
-		'flyers' : flyers,
+		'products' : products,
 	}
 	return render(request, 'circulars/index.html', context)
 

@@ -11,6 +11,7 @@ class StoreAdmin(admin.ModelAdmin):
 	search_fields = ['name']
 	list_display = ('name', 'logo')
 
+
 class TagAdmin(admin.ModelAdmin):
     search_fields = ['tag']
 
@@ -29,8 +30,11 @@ class FlyerInline(admin.TabularInline):
     autocomplete_fields = ['flyer', 'tags', 'categories']
 
 class FlyerAdmin(admin.ModelAdmin):
+    def products(self, obj):
+        count = Product.objects.filter(flyer=obj.id).count()
+        return count
     autocomplete_fields = ['store']
-    list_display = ('title', 'date_expired', 'store')
+    list_display = ('title', 'products','date_expired', 'store')
     list_select_related = ('store',)
     search_fields = ['title']
     inlines = [
@@ -47,8 +51,14 @@ class CouponInline(admin.StackedInline):
     autocomplete_fields = ['tags', 'categories']
 
 class CouponAdmin(admin.ModelAdmin):
+    def price(self, obj):
+        product = Product.objects.get(coupon=obj.id)
+        regular_price = product.r_price
+        sale_price = product.s_price
+        return str(regular_price) + ' --> ' + str(sale_price)
+
     autocomplete_fields = ['store']
-    list_display = ('product','date_expired', 'store')
+    list_display = ('product', 'price', 'date_expired', 'store')
     list_select_related = ('store',)
     search_fields = ['store']
     inlines = [

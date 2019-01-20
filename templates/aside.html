@@ -1,0 +1,6 @@
+<h2>Categories</h2>
+<ul>
+{% for c in CATEGORIES %}
+	<li><a class="has-text-black is-uppercase" href=""><span class="has-text-weight-bold">{{ c.name|title }}</span> ( {{ c.products.count }} Items )</a></li>
+{% endfor %}
+</ul>

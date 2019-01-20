@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en" class="has-navbar-fixed-top">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,36 +12,31 @@
 </head>
 <body>
     
-    <header class="fixed">
+    <header>
         {% include 'navbar.html' %}
-        <div class="notification is-info is-radiusless is-marginless" style="padding: 1rem;">
-            <div class="container is-fluid">
-               <div class="field has-addons is-marginless">
-                    <p class="control">
-                        <p class="select">
-                            <select style="border-radius: 0;">
-                                <option>SELECT CITY</option>
-                                <option>JEDDAH</option>
-                                <option>RIYADH</option>
-                            </select>
+    </header>
+
+    <main class="content is-marginless">
+    	<div class="columns is-desktop is-marginless is-paddingless">
+            <div class="column is-3-desktop is-marginless is-paddingless" style="border-right: 1px solid #eee;">
+                <div class="section">
+                    {% include 'aside.html' %}
+                </div>
+            </div>
+            <div class="column is-9-desktop is-marginless is-paddingless">
+                <div class="section">
+                    <div class="field has-addons">
+                        <p class="control is-expanded">
+                            <input class="input is-primary is-large" type="text" placeholder="Search">
                         </p>
-                    </p>
-                    <p class="control is-expanded">
-                        <input type="text" class="input" name="query">
-                    </p>
-                    <p class="control">
-                        <button type="submit" class="button" name="Search" value="Search" >Search</button>
-                    </p>
+                        <p class="control">
+                            <a class="button is-primary is-large"><span class="icon is-medium"><i class="fas fa-search"></i></span></a>
+                        </p>
+                    </div>
+                    {% block 'main' %}{% endblock %}
                 </div>
             </div>
         </div>
-    </header>
-
-    {% for s in stores_menu %}
-        {{s.name}}
-    {% endfor %}    
-    <main class="content is-marginless">
-    	{% block 'content' %}{% endblock %}
     </main>
 
     <footer class="footer has-background-black">
