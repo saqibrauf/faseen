@@ -58,7 +58,7 @@ class CouponAdmin(admin.ModelAdmin):
         return str(regular_price) + ' --> ' + str(sale_price)
 
     autocomplete_fields = ['store']
-    list_display = ('product', 'price', 'date_expired', 'store')
+    list_display = ('products', 'price', 'date_expired', 'store')
     list_select_related = ('store',)
     search_fields = ['store']
     inlines = [
@@ -67,9 +67,16 @@ class CouponAdmin(admin.ModelAdmin):
 ###############################################################################
 
 class ProductAdmin(admin.ModelAdmin):
+    def related_to(self, obj):
+        if obj.flyer:
+            related = obj.flyer.title
+        else:
+            related = 'Coupon --> ' + obj.name
+        return related
+
     autocomplete_fields = ['flyer', 'tags', 'categories']
-    list_display = ('name', 'r_price', 's_price', 'flyer')
-    list_select_related = ('flyer',)
+    list_display = ('name', 'r_price', 's_price', 'related_to')
+    #list_select_related = ('flyer', 'coupon')
 
 
 admin.site.register(Location, LocationAdmin)
@@ -78,4 +85,4 @@ admin.site.register(Tag, TagAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Flyer, FlyerAdmin)
 admin.site.register(Coupon, CouponAdmin)
-#admin.site.register(Product, ProductAdmin)
+admin.site.register(Product, ProductAdmin)

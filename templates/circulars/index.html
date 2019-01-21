@@ -11,16 +11,16 @@
 				<div class="column is-6-desktop">
 					<div class="notification is-radiusless" style="min-height: 100%; position: relative;">
 						{% if p.flyer %}
-							<p class="tag is-black is-large is-radiusless" style="position: absolute; top: 0; left: 0;">CIRCULAR</p>
-						{% else %}	
-							<p class="tag is-black is-large is-radiusless" style="position: absolute; top: 0; left: 0;">COUPON</p>
+							<p class="tag is-primary is-medium is-radiusless is-uppercase" style="position: absolute; top: 0; left: 0;">View more items in this circular</p>
+						{% elif p.coupon %}	
+							<p class="tag is-primary is-medium is-radiusless is-uppercase" style="position: absolute; top: 0; left: 0;">Coupon</p>
 						{% endif %}
 						<figure class="box is-marginless is-radiusless" style="padding: 0.5rem">
 							<img src="{{ p.image.url }}" style="max-height: 8rem;">
 						</figure>
-						<h3>{{ p.name|title }}</h3>
-						<p>{{ p.desc|truncatechars:100 }}</p>
-						<p class="tags"><span class="tag is-primary is-medium"><del>{{p.r_price}}</del>/{{ p.s_price }}</span><span class="tag is-info is-medium">Add to cart</span></p>
+						<h3 class="is-size-5">{{ p.name|title }}</h3>
+						<p class="is-size-7">{{ p.desc|truncatechars:100 }}</p>
+						<p class="tags"><span class="tag is-primary is-medium"><del>{{p.r_price}}</del>/ {{ p.s_price }}</span><span class="tag is-info is-medium">ADD TO CART</span></p>
 					</div>
 				</div>
 			{% endfor %}

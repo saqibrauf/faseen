@@ -18,7 +18,7 @@
 
     <main class="content is-marginless">
     	<div class="columns is-desktop is-marginless is-paddingless">
-            <div class="column is-3-desktop is-marginless is-paddingless" style="border-right: 1px solid #eee;">
+            <div class="column is-3-desktop is-marginless is-paddingless is-hidden-touch" style="border-right: 1px solid #eee;">
                 <div class="section">
                     {% include 'aside.html' %}
                 </div>
@@ -27,10 +27,10 @@
                 <div class="section">
                     <div class="field has-addons">
                         <p class="control is-expanded">
-                            <input class="input is-primary is-large" type="text" placeholder="Search">
+                            <input class="input is-large" type="text" placeholder="Search">
                         </p>
                         <p class="control">
-                            <a class="button is-primary is-large"><span class="icon is-medium"><i class="fas fa-search"></i></span></a>
+                            <a class="button is-large"><span class="icon is-medium"><i class="fas fa-search"></i></span></a>
                         </p>
                     </div>
                     {% block 'main' %}{% endblock %}

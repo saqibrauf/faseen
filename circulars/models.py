@@ -103,11 +103,11 @@ class Coupon(models.Model):
 		ordering = ['date_created']	
 
 	def __str__(self):
-		return self.product.name.title()
+		return self.products.name.title()
 
 class Product(models.Model):
 	flyer = models.ForeignKey(Flyer, on_delete=models.CASCADE, blank=True, null=True, related_name='products')
-	coupon = models.OneToOneField(Coupon, on_delete=models.CASCADE, blank=True, null=True, related_name='product')
+	coupon = models.OneToOneField(Coupon, on_delete=models.CASCADE, blank=True, null=True, related_name='products')
 	name = models.CharField(max_length=255)
 	slug = models.SlugField(max_length=255, blank=True, editable=False)
 	r_price = models.DecimalField(default=0, decimal_places=2, max_digits=8, verbose_name='Regular Price')

@@ -19,7 +19,7 @@
     </div>
     <div id="navMain" class="navbar-menu">                       
         <div class="navbar-start">
-            <div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable is-hidden">
                 <a class="navbar-link is-uppercase" href="{% url 'all_stores' %}">All Stores</a>
                 <div class="navbar-dropdown">
                     {% for s in STORES_MENU|slice:':10' %}
@@ -29,7 +29,7 @@
                     <a class="navbar-item has-text-weight-bold is-uppercase" href="{% url 'all_stores' %}">View All Stores</a>
                 </div>
             </div>
-            <div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable is-hidden-desktop">
                 <a class="navbar-link is-uppercase" href="{% url 'all_stores' %}">Categories</a>
                 <div class="navbar-dropdown">
                     {% for c in CATEGORIES|slice:':10' %}
